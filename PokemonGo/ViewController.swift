@@ -41,7 +41,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 let pokemon = self.pokemons[ Int(indicePokemonAleatorio) ]
                 
                 //let anotacao = MKPointAnnotation()
-                let anotacao = PokemonAnotacao(coordenadas: coordenadas)
+                let anotacao = PokemonAnotacao(coordenadas: coordenadas, pokemon: pokemon)
                 
                 let latAleatoria = (Double( arc4random_uniform(400) ) - 200) / 100000.0
                 let lonAleatoria = (Double( arc4random_uniform(400) ) - 200) / 100000.0
@@ -65,7 +65,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if annotation is MKUserLocation{
             anotacaoView.image = #imageLiteral(resourceName: "player")
         }else{
-            anotacaoView.image = #imageLiteral(resourceName: "pikachu-2")
+            
+            let pokemon = (annotation as! PokemonAnotacao).pokemon
+            
+            //anotacaoView.image = #imageLiteral(resourceName: "pikachu-2")
+            anotacaoView.image = UIImage(named: pokemon.nomeImagem!)
         }
         
         var frame = anotacaoView.frame
