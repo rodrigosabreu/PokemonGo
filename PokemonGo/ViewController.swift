@@ -43,8 +43,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
         
-        
     }
+    
+    //exibir anotacoes como outras imagens
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let anotacaoView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        
+        if annotation is MKUserLocation{
+            anotacaoView.image = #imageLiteral(resourceName: "player")
+        }else{
+            anotacaoView.image = #imageLiteral(resourceName: "pikachu-2")
+        }
+        
+        var frame = anotacaoView.frame
+        frame.size.height = 40
+        frame.size.width = 40
+        
+        anotacaoView.frame = frame
+        
+        return anotacaoView
+    }
+    
     
     //tratando quando o usuario nega a autorização de localização
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -75,7 +95,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             alertController.addAction(acaoCancelar)
             
             present(alertController, animated: true, completion: nil)
-            
             
         }
         
