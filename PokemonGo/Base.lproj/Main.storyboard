@@ -93,6 +93,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Drj-LP-zKB" id="4cX-EP-1aD"/>
+                                    <outlet property="delegate" destination="Drj-LP-zKB" id="sCg-ne-0hd"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzN-KX-czi">
                                 <rect key="frame" x="162" y="607" width="50" height="50"/>

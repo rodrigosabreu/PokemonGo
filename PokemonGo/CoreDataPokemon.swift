@@ -69,7 +69,7 @@ class CoreDataPokemon{
         self.criarPokemon(nome: "Bullbasaur", nomeImagem: "bullbasaur", capturado: false)
         self.criarPokemon(nome: "Charmander", nomeImagem: "charmander", capturado: false)
         self.criarPokemon(nome: "Dratini", nomeImagem: "dratini", capturado: false)
-        self.criarPokemon(nome: "Eeve", nomeImagem: "eeve", capturado: false)
+        self.criarPokemon(nome: "Eevee", nomeImagem: "eevee", capturado: false)
         self.criarPokemon(nome: "Mankey", nomeImagem: "mankey", capturado: false)
         self.criarPokemon(nome: "Meowth", nomeImagem: "meowth", capturado: false)
         self.criarPokemon(nome: "Mew", nomeImagem: "mew", capturado: false)
