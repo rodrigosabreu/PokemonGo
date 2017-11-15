@@ -66,10 +66,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         if contador < 3{
             
-            if let coordenadas = gerenciadorLocalizacao.location?.coordinate{
-                let regiao = MKCoordinateRegionMakeWithDistance(coordenadas, 200, 200)
-                mapa.setRegion(regiao, animated: true)
-            }
+            self.centralizar()            
             contador += 1
             
         }else{
@@ -78,14 +75,27 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-    
-    
-
-    override func didReceiveMemoryWarning() {
+       override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-
+    func centralizar()
+    {
+        if let coordenadas = gerenciadorLocalizacao.location?.coordinate{
+            let regiao = MKCoordinateRegionMakeWithDistance(coordenadas, 200, 200)
+            mapa.setRegion(regiao, animated: true)
+        }
+    }
+    
+    @IBAction func centralizarJogador(_ sender: Any) {
+        self.centralizar()
+    }
+    
+    
+    @IBAction func abrirPokedex(_ sender: Any) {
+    }
+    
+    
 }
 
