@@ -81,6 +81,71 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return anotacaoView
     }
     
+    //selcionar anotacao (capturar anotacao)
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        let anotacao = view.annotation
+        let pokemon = (view.annotation as! PokemonAnotacao).pokemon
+        
+        
+        mapView.deselectAnnotation(anotacao, animated: true)
+        
+        if anotacao is MKUserLocation{
+            
+            return
+        }
+        
+        if let coordAnotacao = anotacao?.coordinate{
+            let regiao = MKCoordinateRegionMakeWithDistance(coordAnotacao, 200, 200)
+            mapa.setRegion(regiao, animated: true)
+        }
+        
+        //espera 1 segundo até que a tela centralize
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            
+            
+                if let coord = self.gerenciadorLocalizacao.location?.coordinate{
+                    if MKMapRectContainsPoint(self.mapa.visibleMapRect, MKMapPointForCoordinate(coord)){
+                        self.coreDataPokemon.salvarPokemon(pokemon: pokemon)
+                        self.mapa.removeAnnotation( anotacao! )
+                        
+                        let alertController = UIAlertController(
+                            title: "Parabéns!!!",
+                            message: "Você capturou o pokémon: \(pokemon.nome!)",
+                            preferredStyle: .alert )
+                        
+                        let ok = UIAlertAction(title: "ok", style: .default, handler: nil)
+                        alertController.addAction(ok)
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                    }else{
+                        
+                        let alertController = UIAlertController(
+                            title: "Você não pode Capturar",
+                            message: "Você precisa se aproximar mais para capturar o \(pokemon.nome!)",
+                            preferredStyle: .alert )
+                        
+                        let ok = UIAlertAction(title: "ok", style: .default, handler: nil)
+                        alertController.addAction(ok)
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                        
+                    }
+                
+                
+                
+            }
+            
+            
+        }
+        
+        
+        
+        
+     
+        
+        
+    }
     
     //tratando quando o usuario nega a autorização de localização
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -135,8 +200,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Dispose of any resources that can be recreated.
     }
 
-    func centralizar()
-    {
+    func centralizar(){
         if let coordenadas = gerenciadorLocalizacao.location?.coordinate{
             let regiao = MKCoordinateRegionMakeWithDistance(coordenadas, 200, 200)
             mapa.setRegion(regiao, animated: true)
